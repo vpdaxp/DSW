@@ -1,0 +1,102 @@
+body{
+    background-color: #e7e7e7;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+header{
+    background-color: rgb(49, 48, 48);
+    color: white;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+nav{
+    margin-top: 1rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+nav a{
+    color: rgb(252, 252, 252);
+    text-decoration:  none;
+    font-weight: bold;
+}
+
+nav a:hover{
+    color: crimson;
+}
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+article {
+    flex: 3;
+    margin-right: 1rem;
+    background: #c7c5c5;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: justify;
+}
+
+article img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+aside {
+    color: white;
+    flex: 0 0 auto;
+    background: #8b8b8b;
+    padding: 1rem;
+    border-radius: 5px;
+    width: auto;
+    height: max-content;
+
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+}
+
+aside ul li {
+    margin-bottom: 0.5rem;
+}
+
+aside ul li a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+aside ul li a:hover {
+    font-weight: bold;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    article {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+}
