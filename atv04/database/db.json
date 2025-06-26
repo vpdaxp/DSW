@@ -1,0 +1,128 @@
+[
+  {
+    "id": 1,
+    "nome": "Ana Silva",
+    "curso": "Ciência da Computação",
+    "ira": 8.4
+  },
+  {
+    "id": 2,
+    "nome": "Bruno Costa",
+    "curso": "Engenharia de Software",
+    "ira": 9.2
+  },
+  {
+    "id": 3,
+    "nome": "Carla Dias",
+    "curso": "Sistemas de Informação",
+    "ira": 7.8
+  },
+  {
+    "id": 4,
+    "nome": "Daniel Oliveira",
+    "curso": "Ciência da Computação",
+    "ira": 8.1
+  },
+  {
+    "id": 5,
+    "nome": "Eduarda Ferreira",
+    "curso": "Engenharia de Computação",
+    "ira": 8.9
+  },
+  {
+    "id": 6,
+    "nome": "Felipe Martins",
+    "curso": "Redes de Computadores",
+    "ira": 7.5
+  },
+  {
+    "id": 7,
+    "nome": "Gabriela Almeida",
+    "curso": "Sistemas de Informação",
+    "ira": 9.5
+  },
+  {
+    "id": 8,
+    "nome": "Heitor Rodrigues",
+    "curso": "Engenharia de Software",
+    "ira": 8.3
+  },
+  {
+    "id": 9,
+    "nome": "Isabela Santos",
+    "curso": "Ciência da Computação",
+    "ira": 7.2
+  },
+  {
+    "id": 10,
+    "nome": "João Pereira",
+    "curso": "Análise e Desenvolvimento de Sistemas",
+    "ira": 8.7
+  },
+  {
+    "id": 11,
+    "nome": "Larissa Gonçalves",
+    "curso": "Ciência de Dados",
+    "ira": 9.8
+  },
+  {
+    "id": 12,
+    "nome": "Marcos Souza",
+    "curso": "Engenharia de Computação",
+    "ira": 7.1
+  },
+  {
+    "id": 13,
+    "nome": "Natália Lima",
+    "curso": "Redes de Computadores",
+    "ira": 8
+  },
+  {
+    "id": 14,
+    "nome": "Otávio Mendes",
+    "curso": "Engenharia de Software",
+    "ira": 9.1
+  },
+  {
+    "id": 15,
+    "nome": "Patrícia Ribeiro",
+    "curso": "Ciência da Computação",
+    "ira": 8.6
+  },
+  {
+    "id": 16,
+    "nome": "Rafael Azevedo",
+    "curso": "Jogos Digitais",
+    "ira": 9.3
+  },
+  {
+    "id": 17,
+    "nome": "Sofia Carvalho",
+    "curso": "Sistemas de Informação",
+    "ira": 7.9
+  },
+  {
+    "id": 18,
+    "nome": "Thiago Barros",
+    "curso": "Segurança da Informação",
+    "ira": 9
+  },
+  {
+    "id": 19,
+    "nome": "Vanessa Nogueira",
+    "curso": "Análise e Desenvolvimento de Sistemas",
+    "ira": 8.4
+  },
+  {
+    "id": 20,
+    "nome": "William Fernandes",
+    "curso": "Ciência de Dados",
+    "ira": 9.6
+  },
+  {
+    "id": 21,
+    "nome": "Jamuelson de oliveira brito",
+    "curso": "Ciência da Computação\t",
+    "ira": 10
+  }
+]
