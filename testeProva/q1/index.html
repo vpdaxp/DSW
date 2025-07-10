@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos do Mercado</title>
+    <style>
+        :root {
+            --cor-primaria: #005f73;
+            --cor-secundaria: #0a9396;
+            --cor-fundo: #f4f4f9;
+            --cor-texto: #333;
+            --cor-borda: #ddd;
+            --cor-sucesso: #2a9d8f;
+            --cor-erro: #e76f51;
+            --cor-info: #e9c46a;
+            --sombra: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: var(--cor-primaria);
+        }
+        main {
+            width: 100%;
+            max-width: 900px;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+        }
+        button {
+            background-color: var(--cor-secundaria);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: var(--cor-primaria);
+        }
+        #status {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .info { 
+            background-color: #fefae0;
+            border-left: 5px solid var(--cor-info); 
+        }
+        .sucesso { 
+            background-color: #e8f5e9;
+            border-left: 5px solid var(--cor-sucesso);
+            color: var(--cor-sucesso);
+        }
+        .erro { 
+            background-color: #fce4e4;
+            border-left: 5px solid var(--cor-erro); 
+            color: var(--cor-erro); 
+        }
+
+        #estatisticas {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        #tabelaProdutos {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        #tabelaProdutos th, #tabelaProdutos td {
+            border: 1px solid var(--cor-borda);
+            padding: 12px;
+            text-align: left;
+        }
+        #tabelaProdutos thead {
+            background-color: var(--cor-primaria);
+            color: white;
+        }
+        #tabelaProdutos tbody tr:nth-child(even) {
+            background-color: var(--cor-fundo);
+        }
+        .mais-caro { 
+            background-color: #ffdddd !important;
+            font-weight: bold;
+        }
+        .mais-barato { 
+            background-color: #ddffdd !important; 
+        }
+        .acima-media { 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Consulta de Produtos</h1>
+        <p>Clique no botão para buscar 10 produtos aleatórios da nossa base de dados.</p>
+        <button onclick="consumirPromessa()">Buscar Produtos</button>
+    </header>
+
+    <main>
+        <div id="status">Clique no botão para iniciar.</div>
+        <div id="estatisticas" style="display: none;"></div>
+        <table id="tabelaProdutos">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOME</th>
+                    <th>TIPO</th>
+                    <th>PREÇO</th>
+                </tr>
+            </thead>
+            <tbody id="corpoTabela">
+            </tbody>
+        </table>
+    </main>
+</body>
+<script>
+    const produtosDeMercado = [
+        { ID: 1, NOME: "Arroz Agulhinha Tipo 1 (5kg)", TIPO: "Mercearia", PRECO: 25.99 }, { ID: 2, NOME: "Feijão Carioca Tipo 1 (1kg)", TIPO: "Mercearia", PRECO: 8.49 }, { ID: 3, NOME: "Açúcar Refinado (1kg)", TIPO: "Mercearia", PRECO: 4.79 }, { ID: 4, NOME: "Café Torrado e Moído (500g)", TIPO: "Mercearia", PRECO: 15.90 }, { ID: 5, NOME: "Óleo de Soja (900ml)", TIPO: "Mercearia", PRECO: 7.99 }, { ID: 6, NOME: "Leite Integral UHT (1L)", TIPO: "Laticínios", PRECO: 4.29 }, { ID: 7, NOME: "Manteiga com Sal (200g)", TIPO: "Laticínios", PRECO: 9.98 }, { ID: 8, NOME: "Queijo Mussarela Fatiado (200g)", TIPO: "Frios", PRECO: 12.50 }, { ID: 9, NOME: "Presunto Cozido Fatiado (200g)", TIPO: "Frios", PRECO: 8.99 }, { ID: 10, NOME: "Pão de Forma Tradicional (480g)", TIPO: "Padaria", PRECO: 7.49 }, { ID: 11, NOME: "Ovos Brancos (dúzia)", TIPO: "Hortifruti", PRECO: 9.99 }, { ID: 12, NOME: "Banana Nanica (kg)", TIPO: "Hortifruti", PRECO: 4.99 }, { ID: 13, NOME: "Maçã Gala (kg)", TIPO: "Hortifruti", PRECO: 8.98 }, { ID: 14, NOME: "Tomate (kg)", TIPO: "Hortifruti", PRECO: 7.99 }, { ID: 15, NOME: "Cebola (kg)", TIPO: "Hortifruti", PRECO: 5.99 }, { ID: 16, NOME: "Batata Lavada (kg)", TIPO: "Hortifruti", PRECO: 4.49 }, { ID: 17, NOME: "Alface Crespa (unidade)", TIPO: "Hortifruti", PRECO: 3.49 }, { ID: 18, NOME: "Peito de Frango sem Osso (kg)", TIPO: "Açougue", PRECO: 18.90 }, { ID: 19, NOME: "Carne Moída de Primeira (kg)", TIPO: "Açougue", PRECO: 35.90 }, { ID: 20, NOME: "Linguiça Toscana (kg)", TIPO: "Açougue", PRECO: 19.99 }, { ID: 21, NOME: "Refrigerante Cola (2L)", TIPO: "Bebidas", PRECO: 8.99 }, { ID: 22, NOME: "Suco de Laranja Integral (1L)", TIPO: "Bebidas", PRECO: 10.50 }, { ID: 23, NOME: "Água Mineral sem Gás (1.5L)", TIPO: "Bebidas", PRECO: 2.99 }, { ID: 24, NOME: "Cerveja Pilsen (lata 350ml)", TIPO: "Bebidas", PRECO: 3.49 }, { ID: 25, NOME: "Macarrão Espaguete (500g)", TIPO: "Mercearia", PRECO: 4.29 }, { ID: 26, NOME: "Molho de Tomate Tradicional (340g)", TIPO: "Mercearia", PRECO: 3.19 }, { ID: 27, NOME: "Milho Verde em Conserva (lata 200g)", TIPO: "Mercearia", PRECO: 3.99 }, { ID: 28, NOME: "Ervilha em Conserva (lata 200g)", TIPO: "Mercearia", PRECO: 3.89 }, { ID: 29, NOME: "Maionese Tradicional (500g)", TIPO: "Mercearia", PRECO: 8.79 }, { ID: 30, NOME: "Farinha de Trigo (1kg)", TIPO: "Mercearia", PRECO: 5.49 }, { ID: 31, NOME: "Fermento em Pó Químico (100g)", TIPO: "Mercearia", PRECO: 4.99 }, { ID: 32, NOME: "Achocolatado em Pó (400g)", TIPO: "Mercearia", PRECO: 9.90 }, { ID: 33, NOME: "Biscoito Recheado Chocolate (140g)", TIPO: "Mercearia", PRECO: 3.99 }, { ID: 34, NOME: "Sabão em Pó (800g)", TIPO: "Limpeza", PRECO: 12.99 }, { ID: 35, NOME: "Detergente Líquido Neutro (500ml)", TIPO: "Limpeza", PRECO: 2.79 }, { ID: 36, NOME: "Água Sanitária (1L)", TIPO: "Limpeza", PRECO: 3.49 }, { ID: 37, NOME: "Desinfetante Pinho (500ml)", TIPO: "Limpeza", PRECO: 6.99 }, { ID: 38, NOME: "Esponja de Aço (pacote c/ 8)", TIPO: "Limpeza", PRECO: 4.59 }, { ID: 39, NOME: "Papel Higiênico Folha Dupla (4 rolos)", TIPO: "Higiene", PRECO: 7.99 }, { ID: 40, NOME: "Shampoo Neutro (325ml)", TIPO: "Higiene", PRECO: 11.90 }, { ID: 41, NOME: "Condicionador Neutro (325ml)", TIPO: "Higiene", PRECO: 12.50 }, { ID: 42, NOME: "Sabonete em Barra (90g)", TIPO: "Higiene", PRECO: 2.49 }, { ID: 43, NOME: "Creme Dental (90g)", TIPO: "Higiene", PRECO: 4.99 }, { ID: 44, NOME: "Desodorante Aerosol (150ml)", TIPO: "Higiene", PRECO: 15.99 }, { ID: 45, NOME: "Iogurte Natural (170g)", TIPO: "Laticínios", PRECO: 3.29 }, { ID: 46, NOME: "Requeijão Cremoso (200g)", TIPO: "Laticínios", PRECO: 7.98 }, { ID: 47, NOME: "Lasagna Congelada Bolonhesa (600g)", TIPO: "Congelados", PRECO: 18.99 }, { ID: 48, NOME: "Pizza Congelada Mussarela (460g)", TIPO: "Congelados", PRECO: 15.99 }, { ID: 49, NOME: "Salsicha (500g)", TIPO: "Frios", PRECO: 9.49 }, { ID: 50, NOME: "Pão de Queijo Congelado (1kg)", TIPO: "Congelados", PRECO: 22.90 }
+    ];
+
+    function buscarProdutosDoMercado() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const numeroAleatorio = Math.floor(Math.random() * 10) + 1;
+
+                if (numeroAleatorio % 2 === 0) {
+                    const produtosAleatorios = [];
+                    const idsSelecionados = new Set();
+                    while (produtosAleatorios.length < 10) {
+                        const randomIndex = Math.floor(Math.random() * produtosDeMercado.length);
+                        const produto = produtosDeMercado[randomIndex];
+                        if (!idsSelecionados.has(produto.ID)) {
+                            idsSelecionados.add(produto.ID);
+                            produtosAleatorios.push(produto);
+                        }
+                    }
+                    resolve(produtosAleatorios);
+                } else {
+                    const objetoDeErro = { RES: "ERROR", MSG: "Falha na comunicação com o sistema. Tente novamente." };
+                    reject(objetoDeErro);
+                }
+            }, 4000);
+        });
+    }
+
+    const consumirPromessa = async () => {
+        const statusDiv = document.getElementById("status");
+        const corpoTabela = document.getElementById("corpoTabela");
+        const estatisticasDiv = document.getElementById("estatisticas");
+
+        corpoTabela.innerHTML = "";
+        estatisticasDiv.style.display = 'none';
+        statusDiv.className = 'info';
+        statusDiv.textContent = "Aguardando a resolução da Promise... (Isso levará 4 segundos)";
+
+        try {
+            const listaDeProdutos = await buscarProdutosDoMercado();
+
+            if (listaDeProdutos.length === 0) {
+                statusDiv.className = 'info';
+                statusDiv.textContent = "Nenhum produto foi retornado.";
+                return;
+            }
+
+            const mediaPrecos = listaDeProdutos.reduce((soma, produto) => soma + produto.PRECO, 0) / listaDeProdutos.length;
+            const produtoMaisCaro = listaDeProdutos.reduce((caro, atual) => (atual.PRECO > caro.PRECO) ? atual : caro);
+            const produtoMaisBarato = listaDeProdutos.reduce((barato, atual) => (atual.PRECO < barato.PRECO) ? atual : barato);
+
+            listaDeProdutos.forEach(produto => {
+                const linha = corpoTabela.insertRow();
+                
+                if (produto.ID === produtoMaisCaro.ID) {
+                    linha.classList.add('mais-caro');
+                } else if (produto.ID === produtoMaisBarato.ID) {
+                    linha.classList.add('mais-barato');
+                } else if (produto.PRECO > mediaPrecos) {
+                    linha.classList.add('acima-media');
+                }
+                
+                linha.insertCell(0).textContent = produto.ID;
+                linha.insertCell(1).textContent = produto.NOME;
+                linha.insertCell(2).textContent = produto.TIPO;
+                linha.insertCell(3).textContent = produto.PRECO.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            });
+
+            estatisticasDiv.innerHTML = `
+                <h3>Análise dos Produtos</h3>
+                <p><strong>Média de Preços:</strong> ${mediaPrecos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+                <p><strong>Produto Mais Caro:</strong> ${produtoMaisCaro.NOME} (${produtoMaisCaro.PRECO.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })})</p>
+                <p><strong>Produto Mais Barato:</strong> ${produtoMaisBarato.NOME} (${produtoMaisBarato.PRECO.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })})</p>
+            `;
+            estatisticasDiv.style.display = 'block';
+
+            statusDiv.className = 'sucesso';
+            statusDiv.textContent = "✅ Promessa resolvida e produtos carregados com sucesso!";
+
+        } catch (erro) {
+            statusDiv.className = 'erro';
+            statusDiv.textContent = `❌ ${erro.MSG}`;
+            estatisticasDiv.style.display = 'none';
+        }
+    };
+</script>
+</html>
